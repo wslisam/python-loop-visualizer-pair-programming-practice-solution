@@ -71,6 +71,7 @@
             overflow-x: auto;
             margin-bottom: 20px;
             position: relative;
+            white-space: pre; /* Preserves indentation */
         }
 
         .comment { color: #6a9955; }
@@ -155,10 +156,12 @@
         <!-- Challenge 1 -->
         <div class="card">
             <h2>1. The Countdown</h2>
+            <p>Write a loop that counts down from 10 to 1, then prints "Happy New Year!".</p>
+            
             <div class="code-block">
 <span class="keyword">for</span> i <span class="keyword">in</span> <span class="function">range</span>(<span class="number">10</span>, <span class="number">0</span>, <span class="number">-1</span>):
-    <span class="function">print</span>(i)
-<span class="function">print</span>(<span class="string">"Happy New Year!"</span>)
+    <span class="function">print</span>(i)  <span class="comment"># Indented: Inside the loop</span>
+<span class="function">print</span>(<span class="string">"Happy New Year!"</span>) <span class="comment"># Not Indented: After loop</span>
             </div>
             
             <div class="visualizer">
@@ -173,14 +176,17 @@
         <!-- Challenge 2 -->
         <div class="card accent">
             <h2>2. Summation (Accumulator)</h2>
+            <p>Calculate the sum of all numbers from 1 to 100 and print the final result.</p>
+            
             <div class="code-block">
 total = <span class="number">0</span>
-<span class="keyword">for</span> i <span class="keyword">in</span> <span class="function">range</span>(<span class="number">1</span>, <span class="number">6</span>): <span class="comment"># Simplified to 5 for demo</span>
-    total = total + i
-<span class="function">print</span>(total)
+<span class="keyword">for</span> i <span class="keyword">in</span> <span class="function">range</span>(<span class="number">1</span>, <span class="number">101</span>):
+    total = total + i  <span class="comment"># Indented: Adds every time</span>
+<span class="function">print</span>(total) <span class="comment"># Not Indented: Prints once at end</span>
             </div>
 
             <div class="visualizer">
+                <div style="font-size: 0.8rem; margin-bottom: 30px; color: #666;">(Visualizer simplified to range 1-5)</div>
                 <div style="display: flex; gap: 20px; align-items: center;">
                     <div style="text-align: center;">
                         <div style="margin-bottom:5px;">Current i</div>
@@ -209,7 +215,8 @@ total = <span class="number">0</span>
             let count = 10;
             
             display.textContent = count;
-            msg.textContent = "Inside Loop";
+            msg.textContent = "Inside Loop (Printing i)";
+            display.style.color = "#3b82f6"; // Reset color
 
             const interval = setInterval(() => {
                 count--;
@@ -219,7 +226,7 @@ total = <span class="number">0</span>
                     clearInterval(interval);
                     display.textContent = "Happy New Year!";
                     display.style.color = "#10b981"; // Green
-                    msg.textContent = "Loop Finished (Outside)";
+                    msg.textContent = "Loop Finished (Outside Code)";
                 }
             }, 800);
         }
@@ -227,7 +234,7 @@ total = <span class="number">0</span>
         // Summation Logic
         let currentI = 1;
         let currentTotal = 0;
-        const maxI = 5; // Simplified for demo
+        const maxI = 5; // Simplified for demo purposes
 
         function updateSumDisplay() {
             document.getElementById('sum-i').textContent = currentI <= maxI ? currentI : "Done";
@@ -257,7 +264,7 @@ total = <span class="number">0</span>
             if (currentI > maxI) {
                 setTimeout(() => {
                     document.getElementById('sum-i').textContent = "End";
-                    document.getElementById('sum-equation').textContent = "Loop Finished!";
+                    document.getElementById('sum-equation').textContent = "Loop Finished! Printing total.";
                 }, 500);
             } else {
                 // Update "i" display after a short delay for visual clarity
