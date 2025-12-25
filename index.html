@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Loop Challenges Explained</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --primary: #3b82f6;
+            --accent: #f59e0b;
+            --text: #1e293b;
+            --code-bg: #1e1e1e;
+            --code-text: #d4d4d4;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: var(--primary);
+            margin-bottom: 30px;
+        }
+
+        .container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 100%;
+            max-width: 500px;
+            border-top: 5px solid var(--primary);
+        }
+
+        .card.accent {
+            border-top-color: var(--accent);
+        }
+
+        h2 {
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .code-block {
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .comment { color: #6a9955; }
+        .keyword { color: #569cd6; }
+        .number { color: #b5cea8; }
+        .string { color: #ce9178; }
+        .function { color: #dcdcaa; }
+
+        .visualizer {
+            background: #f1f5f9;
+            padding: 15px;
+            border-radius: 8px;
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .step-display {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .accumulator-box {
+            width: 100px;
+            height: 100px;
+            border: 3px dashed var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            border-radius: 10px;
+            background: #fffbeb;
+            position: relative;
+        }
+        
+        .accumulator-label {
+            position: absolute;
+            top: -25px;
+            font-size: 0.9rem;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: background 0.2s;
+        }
+
+        .btn:hover { background-color: #2563eb; }
+        .btn.reset { background-color: #64748b; }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .highlight {
+            background-color: rgba(255, 255, 0, 0.2);
+            padding: 2px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Pair Programming Practice (Solutions)</h1>
+
+    <div class="container">
+        <!-- Challenge 1 -->
+        <div class="card">
+            <h2>1. The Countdown</h2>
+            <div class="code-block">
+<span class="keyword">for</span> i <span class="keyword">in</span> <span class="function">range</span>(<span class="number">10</span>, <span class="number">0</span>, <span class="number">-1</span>):
+    <span class="function">print</span>(i)
+<span class="function">print</span>(<span class="string">"Happy New Year!"</span>)
+            </div>
+            
+            <div class="visualizer">
+                <div id="countdown-display" class="step-display">Start</div>
+                <div id="countdown-msg" style="height: 20px; color: #64748b;">Waiting...</div>
+            </div>
+            <div class="controls">
+                <button class="btn" onclick="runCountdown()">Run Animation</button>
+            </div>
+        </div>
+
+        <!-- Challenge 2 -->
+        <div class="card accent">
+            <h2>2. Summation (Accumulator)</h2>
+            <div class="code-block">
+total = <span class="number">0</span>
+<span class="keyword">for</span> i <span class="keyword">in</span> <span class="function">range</span>(<span class="number">1</span>, <span class="number">6</span>): <span class="comment"># Simplified to 5 for demo</span>
+    total = total + i
+<span class="function">print</span>(total)
+            </div>
+
+            <div class="visualizer">
+                <div style="display: flex; gap: 20px; align-items: center;">
+                    <div style="text-align: center;">
+                        <div style="margin-bottom:5px;">Current i</div>
+                        <div id="sum-i" class="step-display" style="font-size: 1.5rem;">1</div>
+                    </div>
+                    <div style="font-size: 2rem;">+</div>
+                    <div class="accumulator-box">
+                        <span class="accumulator-label">total</span>
+                        <span id="sum-total">0</span>
+                    </div>
+                </div>
+                <div id="sum-equation" style="margin-top: 15px; font-family: monospace;">total = 0 + 1</div>
+            </div>
+            <div class="controls">
+                <button class="btn" onclick="stepSum()">Next Step (+)</button>
+                <button class="btn reset" onclick="resetSum()">Reset</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Countdown Logic
+        function runCountdown() {
+            const display = document.getElementById('countdown-display');
+            const msg = document.getElementById('countdown-msg');
+            let count = 10;
+            
+            display.textContent = count;
+            msg.textContent = "Inside Loop";
+
+            const interval = setInterval(() => {
+                count--;
+                if (count > 0) {
+                    display.textContent = count;
+                } else {
+                    clearInterval(interval);
+                    display.textContent = "Happy New Year!";
+                    display.style.color = "#10b981"; // Green
+                    msg.textContent = "Loop Finished (Outside)";
+                }
+            }, 800);
+        }
+
+        // Summation Logic
+        let currentI = 1;
+        let currentTotal = 0;
+        const maxI = 5; // Simplified for demo
+
+        function updateSumDisplay() {
+            document.getElementById('sum-i').textContent = currentI <= maxI ? currentI : "Done";
+            document.getElementById('sum-total').textContent = currentTotal;
+            if(currentI <= maxI) {
+                document.getElementById('sum-equation').textContent = `total = ${currentTotal} + ${currentI}`;
+            } else {
+                document.getElementById('sum-equation').textContent = `Final Result: ${currentTotal}`;
+            }
+        }
+
+        function stepSum() {
+            if (currentI > maxI) return;
+
+            // Perform addition
+            let oldTotal = currentTotal;
+            currentTotal = currentTotal + currentI;
+            
+            // Update UI to show result
+            document.getElementById('sum-total').textContent = currentTotal;
+            document.getElementById('sum-equation').textContent = `total becomes ${currentTotal}`;
+            
+            // Prepare for next step
+            currentI++;
+            
+            // If loop finished
+            if (currentI > maxI) {
+                setTimeout(() => {
+                    document.getElementById('sum-i').textContent = "End";
+                    document.getElementById('sum-equation').textContent = "Loop Finished!";
+                }, 500);
+            } else {
+                // Update "i" display after a short delay for visual clarity
+                setTimeout(() => {
+                    document.getElementById('sum-i').textContent = currentI;
+                    document.getElementById('sum-equation').textContent = `total = ${currentTotal} + ${currentI}`;
+                }, 500);
+            }
+        }
+
+        function resetSum() {
+            currentI = 1;
+            currentTotal = 0;
+            document.getElementById('sum-i').textContent = 1;
+            document.getElementById('sum-total').textContent = 0;
+            document.getElementById('sum-equation').textContent = "total = 0 + 1";
+        }
+    </script>
+</body>
+</html>
